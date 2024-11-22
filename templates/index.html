@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skin Cancer Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Skin Cancer Detection System</h1>
+    <p>Upload a medical image for analysis</p>
+
+    <div class="upload-container">
+        <select id="model-select">
+            <option value="skin">Skin Cancer</option>
+        </select>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="image-input" name="file" accept=".png,.jpg,.jpeg" style="display: none;">
+            <button type="button" class="upload-btn" onclick="document.getElementById('image-input').click()">
+                Choose File
+            </button>
+        </form>
+    </div>
+
+    <div id="loading" style="display: none;">Analyzing image...</div>
+
+    <div id="result-container" class="result-container">
+        <h2>Results</h2>
+        <p id="result-text"></p>
+        <img id="preview-image">
+    </div>
+
+    <script>
+        document.getElementById('image-input').addEventListener('change', function(e) {
+            const selectedModel = document.getElementById('model-select').value;
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Show loading
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('result-container').style.display = 'none';
+
+                fetch(`/predict?model=${selectedModel}`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Hide loading
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('result-container').style.display = 'block';
+
+                    if (data.error) {
+                        document.getElementById('result-text').textContent = 'Error: ' + data.error;
+                        return;
+                    }
+
+                    // Display results
+                    document.getElementById('result-text').textContent = `Diagnosis: ${data.result}`;
+                    document.getElementById('preview-image').src = '/static/' + data.image_path;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('result-text').textContent = 'Error processing request';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

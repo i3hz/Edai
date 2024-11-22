@@ -1,0 +1,154 @@
+/* Enhanced styles.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 40%, #d6e1f2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    color: #333;
+    overflow-y: auto;
+    max-height: 300vh;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    animation: fadeIn 1s ease-out;
+}
+
+p {
+    color: #555;
+    margin: 0 0 2rem;
+    text-align: center;
+    max-width: 600px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#model-select {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+#model-select:hover {
+    background-color: #e1e5f2;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.upload-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+}
+
+.upload-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+}
+
+#loading {
+    font-size: 1.25rem;
+    color: #333;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+.result-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #fff, #f8fafc);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+    text-align: center; 
+}
+
+.result-container h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+#result-text {
+    color: #555;
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+#preview-image {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s;
+    display: block; /* Ensure it behaves as a block element */
+    margin-left: auto; /* Center image */
+    margin-right: auto; /* Center image */
+}
+
+#preview-image:hover {
+    transform: scale(1.05);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
